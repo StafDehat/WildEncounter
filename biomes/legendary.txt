@@ -1,0 +1,33 @@
+Raikou
+Entei
+Suicune
+Celebi
+Latias
+Latios
+Kyogre
+Regirock
+Regice
+Registeel
+Jirachi
+Groudon
+Articuno
+Zapdos
+Moltres
+Lugia
+Ho-Oh
+Rayquaza
+Deoxys
+Mewtwo
+Mew
+Diancie
+Unown (Not legendary but maybe not implemented)
+#### Fossils
+Aerodactyl
+Anorith
+Armaldo
+Omanyte
+Omastar
+Kabuto
+Kabutops
+Lileep
+Cradily
