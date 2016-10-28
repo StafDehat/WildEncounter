@@ -1,21 +1,10 @@
 # This is a script to gen wild pokemon encounters for Pokemon the TableTop Game
 # This iteration includes all pokemon from Omega Ruby/Saphire (NO WILD MEGALUTIONS!)
-
-# First I am going to make a few dictonaries for each terrain type, one for common, uncommon, and rare.
-
 import random, sys
 from random import randint
 import getopt
 
-
-
-# First we capture a single letter argument from CLI (This will be the biome)
-
-#x = str(sys.argv[1])
-
-
 # This is where we define functions for each Biome. I have populated .txt files with the pokemon names I have a common, uncommon, and rare txt file for each biome type.
-
 
 
 def cave_c():
@@ -134,6 +123,8 @@ def industrial_r():
 rareness = randint(1,100)
 
 # This is where we define Functions for an entire biome
+# I want to see the roll, because if the pokemon does not fit into my current story I want to re-roll using the correct rarity, I don't want my party to miss out on a rare if it makes no sense to fight the particular rare that is chosen.
+
 
 def cave():
 	print rareness
