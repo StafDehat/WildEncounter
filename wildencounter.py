@@ -1,5 +1,9 @@
 # This is a script to gen wild pokemon encounters for Pokemon the TableTop Game
 # This iteration includes all pokemon from Omega Ruby/Saphire (NO WILD MEGALUTIONS!)
+# This was created and is owned by Anders Nelson aka Phixia/Pecanos 
+# This script is licensed under the Apache 2.0 License http://wwww.apache.org/licenses/
+
+
 import random, sys
 from random import randint
 import getopt
@@ -119,6 +123,10 @@ def fossil():
 
 def evostone():
 	print(random.choice(list(open('biomes/evostone.txt'))))
+	return
+
+def legendary():
+	print(random.choice(list(open('biomes/legendary.txt'))))
 	return
 
 def industrial_c():
@@ -244,13 +252,13 @@ def ruin():
 #Now define usage for if you forget what you are supposed to type as a flag to make the things work
 
 def usage():
-	print "Please pass one of the following flags --cave_c, --cave_uc, --cave_r, --forest_c, --forest_uc, --forest_r, --fossil, --ghost_c, --ghost_uc, --ghost_r, --grassland_c, --grassland_uc, --grassland_r, --industrial_c, --industrial_uc, --industrial_r, --rough_c, --rough_uc, --rough_r, --sea_c, --sea_uc, --sea_r, --urban_c, --urban_uc, --urban_r, --wateredge_c, --wateredge_uc, --wateredge_r, --forest, --cave, --ghost, --grassland, --industrial, --rough, --sea, --urban, --wateredge, --ruin, --ruin_c, --ruin_uc, --ruin_r, --evostone"
+	print "Please pass one of the following flags --cave_c, --cave_uc, --cave_r, --forest_c, --forest_uc, --forest_r, --fossil, --ghost_c, --ghost_uc, --ghost_r, --grassland_c, --grassland_uc, --grassland_r, --industrial_c, --industrial_uc, --industrial_r, --rough_c, --rough_uc, --rough_r, --sea_c, --sea_uc, --sea_r, --urban_c, --urban_uc, --urban_r, --wateredge_c, --wateredge_uc, --wateredge_r, --forest, --cave, --ghost, --grassland, --industrial, --rough, --sea, --urban, --wateredge, --ruin, --ruin_c, --ruin_uc, --ruin_r, --evostone, --legendary"
 
 
 # Here we actually start the program, testing to see if our argument is a valid one
 
 try:
-	opts, args = getopt.getopt(sys.argv[1:], 'a:b:c', ['cave_c', 'cave_uc', 'cave_r', 'forest_c', 'forest_uc', 'forest_r', 'fossil', 'ghost_c', 'ghost_uc', 'ghost_r', 'grassland_c', 'grassland_uc', 'grassland_r', 'industrial_c', 'industrial_uc', 'industrial_r', 'rough_c', 'rough_uc', 'rough_r', 'sea_c', 'sea_uc', 'sea_r', 'urban_c', 'urban_uc', 'urban_r', 'wateredge_c', 'wateredge_uc', 'wateredge_r', 'forest', 'cave', 'ghost', 'grassland', 'industrial', 'rough', 'sea', 'urban', 'wateredge', 'ruin_c', 'ruin_uc', 'ruin_r', 'ruin', 'evostone' ])
+	opts, args = getopt.getopt(sys.argv[1:], 'a:b:c', ['cave_c', 'cave_uc', 'cave_r', 'forest_c', 'forest_uc', 'forest_r', 'fossil', 'ghost_c', 'ghost_uc', 'ghost_r', 'grassland_c', 'grassland_uc', 'grassland_r', 'industrial_c', 'industrial_uc', 'industrial_r', 'rough_c', 'rough_uc', 'rough_r', 'sea_c', 'sea_uc', 'sea_r', 'urban_c', 'urban_uc', 'urban_r', 'wateredge_c', 'wateredge_uc', 'wateredge_r', 'forest', 'cave', 'ghost', 'grassland', 'industrial', 'rough', 'sea', 'urban', 'wateredge', 'ruin_c', 'ruin_uc', 'ruin_r', 'ruin', 'evostone', 'legendary'])
 
 except getopt.GetoptError:
 	usage()
@@ -281,6 +289,8 @@ for opt, arg in opts:
 		wateredge()
 	elif opt in ('--ruin'):
 		ruin()
+	elif opt in ('--legendary'):
+		legendary()
 	elif opt in ('--evostone'):
 		evostone()
 	elif opt in ('-b', '--cave_uc'):
@@ -337,6 +347,12 @@ for opt, arg in opts:
 		wateredge_uc()
 	elif opt in ('--wateredge_r'):
 		wateredge_r()
+	elif opt in ('--ruin_c'):
+		ruin_c()
+	elif opt in ('--ruin_uc'):
+		ruin_uc()
+	elif opt in ('--ruin_r'):
+		ruin_r()
 	else:
 		usage()
 		sys.exit(2)
