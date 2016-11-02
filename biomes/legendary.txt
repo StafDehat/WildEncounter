@@ -1,10 +1,42 @@
 Raikou
 Entei
 Suicune
+Victini
+Heatran
+Reshiram
+Volcanion
+Palkia
+Phione
+Manaphy
+Keldeo
+Zekrom
+Shaymin
+Virizion
+Kyurem
+Kyurem Black
+Kyurem White
+Cobalion
+Meloetta
+Landorus
+Zygarde
+Tornadus
+Thundurus
+Yveltal
+Uxie
+Mesprit
+Azelf
+Hoopa
+Genesect
+Terrakion
+Giratina
+Dialga
+Darkrai
+Xerneas
 Celebi
 Latias
 Latios
 Kyogre
+Regigigas
 Regirock
 Regice
 Registeel
@@ -20,14 +52,3 @@ Deoxys
 Mewtwo
 Mew
 Diancie
-Unown (Not legendary but maybe not implemented)
-#### Fossils
-Aerodactyl
-Anorith
-Armaldo
-Omanyte
-Omastar
-Kabuto
-Kabutops
-Lileep
-Cradily

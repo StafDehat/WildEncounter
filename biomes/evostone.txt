@@ -1,0 +1,9 @@
+Fire
+Water
+Thunder
+Leaf
+Moon
+Sun
+Shiny
+Dusk
+Dawn

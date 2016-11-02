@@ -6,6 +6,17 @@ import getopt
 
 # This is where we define functions for each Biome. I have populated .txt files with the pokemon names I have a common, uncommon, and rare txt file for each biome type.
 
+def ruin_c():
+	print(random.choice(list(open('biomes/ruin_c.txt'))))
+	return
+
+def ruin_uc():
+	print(random.choice(list(open('biomes/ruin_uc.txt'))))
+	return
+
+def ruin_r():
+	print(random.choice(list(open('biomes/ruin_r.txt'))))
+	return
 
 def cave_c():
 	print(random.choice(list(open('biomes/cave_c.txt'))))
@@ -104,6 +115,10 @@ def wateredge_r():
 
 def fossil():
 	print(random.choice(list(open('biomes/fossil.txt'))))
+	return
+
+def evostone():
+	print(random.choice(list(open('biomes/evostone.txt'))))
 	return
 
 def industrial_c():
@@ -216,16 +231,26 @@ def wateredge():
         wateredge_c()
     return
 
+def ruin():
+	print rareness
+	if rareness < 7:
+		ruin_r()
+	elif rareness > 6 and rareness < 40:
+		ruin_uc()
+	else:
+		ruin_c()
+	return
+
 #Now define usage for if you forget what you are supposed to type as a flag to make the things work
 
 def usage():
-	print "Please pass one of the following flags --cave_c, --cave_uc, --cave_r, --forest_c, --forest_uc, --forest_r, --fossil, --ghost_c, --ghost_uc, --ghost_r, --grassland_c, --grassland_uc, --grassland_r, --industrial_c, --industrial_uc, --industrial_r, --rough_c, --rough_uc, --rough_r, --sea_c, --sea_uc, --sea_r, --urban_c, --urban_uc, --urban_r, --wateredge_c, --wateredge_uc, --wateredge_r, --forest, --cave, --ghost, --grassland, --industrial, --rough, --sea, --urban, --wateredge"
+	print "Please pass one of the following flags --cave_c, --cave_uc, --cave_r, --forest_c, --forest_uc, --forest_r, --fossil, --ghost_c, --ghost_uc, --ghost_r, --grassland_c, --grassland_uc, --grassland_r, --industrial_c, --industrial_uc, --industrial_r, --rough_c, --rough_uc, --rough_r, --sea_c, --sea_uc, --sea_r, --urban_c, --urban_uc, --urban_r, --wateredge_c, --wateredge_uc, --wateredge_r, --forest, --cave, --ghost, --grassland, --industrial, --rough, --sea, --urban, --wateredge, --ruin, --ruin_c, --ruin_uc, --ruin_r, --evostone"
 
 
 # Here we actually start the program, testing to see if our argument is a valid one
 
 try:
-	opts, args = getopt.getopt(sys.argv[1:], 'a:b:c', ['cave_c', 'cave_uc', 'cave_r', 'forest_c', 'forest_uc', 'forest_r', 'fossil', 'ghost_c', 'ghost_uc', 'ghost_r', 'grassland_c', 'grassland_uc', 'grassland_r', 'industrial_c', 'industrial_uc', 'industrial_r', 'rough_c', 'rough_uc', 'rough_r', 'sea_c', 'sea_uc', 'sea_r', 'urban_c', 'urban_uc', 'urban_r', 'wateredge_c', 'wateredge_uc', 'wateredge_r', 'forest', 'cave', 'ghost', 'grassland', 'industrial', 'rough', 'sea', 'urban', 'wateredge' ])
+	opts, args = getopt.getopt(sys.argv[1:], 'a:b:c', ['cave_c', 'cave_uc', 'cave_r', 'forest_c', 'forest_uc', 'forest_r', 'fossil', 'ghost_c', 'ghost_uc', 'ghost_r', 'grassland_c', 'grassland_uc', 'grassland_r', 'industrial_c', 'industrial_uc', 'industrial_r', 'rough_c', 'rough_uc', 'rough_r', 'sea_c', 'sea_uc', 'sea_r', 'urban_c', 'urban_uc', 'urban_r', 'wateredge_c', 'wateredge_uc', 'wateredge_r', 'forest', 'cave', 'ghost', 'grassland', 'industrial', 'rough', 'sea', 'urban', 'wateredge', 'ruin_c', 'ruin_uc', 'ruin_r', 'ruin', 'evostone' ])
 
 except getopt.GetoptError:
 	usage()
@@ -254,6 +279,10 @@ for opt, arg in opts:
 		urban()
 	elif opt in ('--wateredge'):
 		wateredge()
+	elif opt in ('--ruin'):
+		ruin()
+	elif opt in ('--evostone'):
+		evostone()
 	elif opt in ('-b', '--cave_uc'):
 		cave_uc()
 	elif opt in ('-c', '--cave_r'):
