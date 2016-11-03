@@ -8,6 +8,12 @@ import random, sys
 from random import randint
 import getopt
 
+# adding a Nature function to gen natures
+
+def nature():
+	print(random.choice(list(open('biomes/nature.txt'))))
+	return
+
 # This is where we define functions for each Biome. I have populated .txt files with the pokemon names I have a common, uncommon, and rare txt file for each biome type.
 
 def ruin_c():
@@ -145,11 +151,22 @@ def industrial_r():
 # This is where we do a roll for rareness
 rareness = randint(1,100)
 
+# This is where we roll to see if the Mon is a shiny one!!
+
+def shiny():
+	shiny = randint(1,100)
+	if shiny == 1:
+		print "SHINY!"
+		return
+	else:
+		return
+
 # This is where we define Functions for an entire biome
 # I want to see the roll, because if the pokemon does not fit into my current story I want to re-roll using the correct rarity, I don't want my party to miss out on a rare if it makes no sense to fight the particular rare that is chosen.
 
 
 def cave():
+	shiny()
 	print rareness
 	if rareness < 7:
 		cave_r()
@@ -160,46 +177,51 @@ def cave():
 	return
 
 def forest():
-    print rareness
-    if rareness < 7:
-        forest_r()
-    elif rareness > 6 and rareness < 40:
-        forest_uc()
-    else:
-        forest_c()
-    return
+	shiny()
+	print rareness
+	if rareness < 7:
+		forest_r()
+	elif rareness > 6 and rareness < 40:
+		forest_uc()
+	else:
+		forest_c()
+	return
 
 def ghost():
-    print rareness
-    if rareness < 7:
-        ghost_r()
-    elif rareness > 6 and rareness < 40:
-        ghost_uc()
-    else:
-        ghost_c()
-    return
+	shiny()
+	print rareness
+	if rareness < 7:
+		ghost_r()
+	elif rareness > 6 and rareness < 40:
+		ghost_uc()
+	else:
+		ghost_c()
+	return
 
 def grassland():
-    print rareness
-    if rareness < 7:
-        grassland_r()
-    elif rareness > 6 and rareness < 40:
-        grassland_uc()
-    else:
-        grassland_c()
-    return
+	shiny()
+	print rareness
+	if rareness < 7:
+		grassland_r()
+	elif rareness > 6 and rareness < 40:
+		grassland_uc()
+	else:
+		grassland_c()
+	return
 
 def industrial():
-    print rareness
-    if rareness < 7:
-        industrial_r()
-    elif rareness > 6 and rareness < 40:
-        industrial_uc()
-    else:
-        industrial_c()
-    return
+	shiny()
+	print rareness
+	if rareness < 7:
+		industrial_r()
+	elif rareness > 6 and rareness < 40:
+		industrial_uc()
+	else:
+		industrial_c()
+	return
 
 def rough():
+	shiny()
 	print rareness
 	if rareness < 7:
 		rough_r()
@@ -210,36 +232,40 @@ def rough():
 	return
 
 def sea():
-    print rareness
-    if rareness < 7:
-        sea_r()
-    elif rareness > 6 and rareness < 40:
-        sea_uc()
-    else:
-        sea_c()
-    return
+	shiny()
+	print rareness
+	if rareness < 7:
+		sea_r()
+	elif rareness > 6 and rareness < 40:
+		sea_uc()
+	else:
+		sea_c()
+	return
 
 def urban():
-    print rareness
-    if rareness < 7:
-        urban_r()
-    elif rareness > 6 and rareness < 40:
-        urban_uc()
-    else:
-        urban_c()
-    return
+	shiny()
+	print rareness
+	if rareness < 7:
+		urban_r()
+	elif rareness > 6 and rareness < 40:
+		urban_uc()
+	else:
+		urban_c()
+	return
 
 def wateredge():
-    print rareness
-    if rareness < 7:
-        wateredge_r()
-    elif rareness > 6 and rareness < 40:
-        wateredge_uc()
-    else:
-        wateredge_c()
-    return
+	shiny()
+	print rareness
+	if rareness < 7:
+		wateredge_r()
+	elif rareness > 6 and rareness < 40:
+		wateredge_uc()
+	else:
+		wateredge_c()
+	return
 
 def ruin():
+	shiny()
 	print rareness
 	if rareness < 7:
 		ruin_r()
@@ -252,13 +278,13 @@ def ruin():
 #Now define usage for if you forget what you are supposed to type as a flag to make the things work
 
 def usage():
-	print "Please pass one of the following flags --cave_c, --cave_uc, --cave_r, --forest_c, --forest_uc, --forest_r, --fossil, --ghost_c, --ghost_uc, --ghost_r, --grassland_c, --grassland_uc, --grassland_r, --industrial_c, --industrial_uc, --industrial_r, --rough_c, --rough_uc, --rough_r, --sea_c, --sea_uc, --sea_r, --urban_c, --urban_uc, --urban_r, --wateredge_c, --wateredge_uc, --wateredge_r, --forest, --cave, --ghost, --grassland, --industrial, --rough, --sea, --urban, --wateredge, --ruin, --ruin_c, --ruin_uc, --ruin_r, --evostone, --legendary"
+	print "Please pass one of the following flags --cave_c, --cave_uc, --cave_r, --forest_c, --forest_uc, --forest_r, --fossil, --ghost_c, --ghost_uc, --ghost_r, --grassland_c, --grassland_uc, --grassland_r, --industrial_c, --industrial_uc, --industrial_r, --rough_c, --rough_uc, --rough_r, --sea_c, --sea_uc, --sea_r, --urban_c, --urban_uc, --urban_r, --wateredge_c, --wateredge_uc, --wateredge_r, --forest, --cave, --ghost, --grassland, --industrial, --rough, --sea, --urban, --wateredge, --ruin, --ruin_c, --ruin_uc, --ruin_r, --evostone, --legendary, --nature"
 
 
 # Here we actually start the program, testing to see if our argument is a valid one
 
 try:
-	opts, args = getopt.getopt(sys.argv[1:], 'a:b:c', ['cave_c', 'cave_uc', 'cave_r', 'forest_c', 'forest_uc', 'forest_r', 'fossil', 'ghost_c', 'ghost_uc', 'ghost_r', 'grassland_c', 'grassland_uc', 'grassland_r', 'industrial_c', 'industrial_uc', 'industrial_r', 'rough_c', 'rough_uc', 'rough_r', 'sea_c', 'sea_uc', 'sea_r', 'urban_c', 'urban_uc', 'urban_r', 'wateredge_c', 'wateredge_uc', 'wateredge_r', 'forest', 'cave', 'ghost', 'grassland', 'industrial', 'rough', 'sea', 'urban', 'wateredge', 'ruin_c', 'ruin_uc', 'ruin_r', 'ruin', 'evostone', 'legendary'])
+	opts, args = getopt.getopt(sys.argv[1:], 'a:b:c', ['cave_c', 'cave_uc', 'cave_r', 'forest_c', 'forest_uc', 'forest_r', 'fossil', 'ghost_c', 'ghost_uc', 'ghost_r', 'grassland_c', 'grassland_uc', 'grassland_r', 'industrial_c', 'industrial_uc', 'industrial_r', 'rough_c', 'rough_uc', 'rough_r', 'sea_c', 'sea_uc', 'sea_r', 'urban_c', 'urban_uc', 'urban_r', 'wateredge_c', 'wateredge_uc', 'wateredge_r', 'forest', 'cave', 'ghost', 'grassland', 'industrial', 'rough', 'sea', 'urban', 'wateredge', 'ruin_c', 'ruin_uc', 'ruin_r', 'ruin', 'evostone', 'legendary', 'nature'])
 
 except getopt.GetoptError:
 	usage()
@@ -353,6 +379,8 @@ for opt, arg in opts:
 		ruin_uc()
 	elif opt in ('--ruin_r'):
 		ruin_r()
+	elif opt in ('--nature'):
+		nature()
 	else:
 		usage()
 		sys.exit(2)
