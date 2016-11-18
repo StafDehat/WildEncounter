@@ -1,32 +1,95 @@
-# This is a script to gen wild pokemon encounters for Pokemon the TableTop Game
+# This is a script to gen wild pokemon encounters for Pokemon the TableTop Adventure Game (PTA)
 # This iteration includes all pokemon from Omega Ruby/Saphire (NO WILD MEGALUTIONS!)
 # This was created and is owned by Anders Nelson aka Phixia/Pecanos 
 # This script is licensed under the Apache 2.0 License http://wwww.apache.org/licenses/
 
+# The sqlite database I am using is forked from https://github.com/PanoramicPanda/PTU-Basic-Database special thanks to PanoramicPanda
 
-import random, sys
+
+import random, sys, sqlite3
 from random import randint
 import getopt
 
+
+
+
+# This function pulls a pokemons information from the sqlite database
+
+def pokestat(mon):
+	conn = sqlite3.connect('PTA')
+	data = conn.execute('SELECT WeightClass, Size, BaseHP, BaseAtk, BaseDef, BaseSpAtk, BaseSpDef, BaseSpeed,Capabilities, Type1, Type2 FROM Pokemon where Name=?' , mon)
+	print mon
+	nature()
+	for row in data:
+		WeightClass = row[0]
+		Size = row[1]
+		BaseHP = row[2]
+		BaseAtk = row[3]
+		BaseDef = row[4]
+		BaseSpAtk = row[5]
+		BaseSpDef = row[6]
+		BaseSpeed = row[7]
+		
+		print "WeightClass = ", row[0]
+		print "Size = ", row[1]
+		print "BaseHP = ", row[2]
+		print "BaseAtk = ", row[3]
+		print "BaseDef = ", row[4]
+		print "BaseSpAtk = ", row[5]
+		print "BaseSpDef = ", row[6]
+		print "BaseSpeed = ", row[7]
+		print "Cababilities = ", row[8]
+		print "Type1 = ", row[9]
+		print "Type2 = ", row[10]
+
+
+
+
+
 # adding a Nature function to gen natures
 
+# Trying this with the DB instead of txt file
 def nature():
-	print(random.choice(list(open('biomes/nature.txt'))))
+	conn = sqlite3.connect('PTA')
+	data = conn.execute('SELECT Name FROM Natures ORDER BY RANDOM() LIMIT 1')
+	for row in data:
+		nature = row[0]
+		nature = (nature,)
+		natdata = conn.execute('SELECT StatUp, StatDown FROM Natures where Name=?', nature)
+		for row in natdata:
+			StatUp = row[0]
+			StatDown = row[1]
+		print nature
+		print "StatUp = ", StatUp
+		print "StatDown = ", StatDown
 	return
+
+#def nature():
+#	print(random.choice(list(open('biomes/nature.txt'))))
+#	return
 
 # This is where we define functions for each Biome. I have populated .txt files with the pokemon names I have a common, uncommon, and rare txt file for each biome type.
 
 def ruin_c():
-	print(random.choice(list(open('biomes/ruin_c.txt'))))
-	return
+	f = open('biomes/ruin_c.txt')
+	mons = f.read().splitlines()
+	mon = random.choice(mons)
+	mon = (mon,)
+	return mon
 
 def ruin_uc():
-	print(random.choice(list(open('biomes/ruin_uc.txt'))))
-	return
+	f = open('biomes/ruin_uc.txt')
+	mons = f.read().splitlines()
+	mon = random.choice(mons)
+	mon = (mon,)
+	return mon
 
 def ruin_r():
-	print(random.choice(list(open('biomes/ruin_r.txt'))))
-	return
+	f = open('biomes/ruin_r.txt')
+	mons = f.read().splitlines()
+	mon = random.choice(mons)
+	mon = (mon,)
+	return mon
 
 def cave_c():
 	print(random.choice(list(open('biomes/cave_c.txt'))))
@@ -268,11 +331,11 @@ def ruin():
 	shiny()
 	print rareness
 	if rareness < 7:
-		ruin_r()
+		pokestat(ruin_r()) 
 	elif rareness > 6 and rareness < 40:
-		ruin_uc()
+		pokestat(ruin_uc())
 	else:
-		ruin_c()
+		pokestat(ruin_c())
 	return
 
 #Now define usage for if you forget what you are supposed to type as a flag to make the things work
