@@ -29,7 +29,16 @@ def pokestat(mon):
 		BaseSpAtk = row[5]
 		BaseSpDef = row[6]
 		BaseSpeed = row[7]
-		
+		Type1 = row[9]
+		Type2 = row[10]
+		Type1 = (Type1 ,)
+		Type2 = (Type2 ,)
+		Typedata = conn.execute('SELECT Type from Types where TypeID =?', Type1)
+		for i in Typedata:
+			Type1 = i[0]
+		Typedata = conn.execute('SELECT Type from Types where TypeID =?', Type2)
+		for i in Typedata:
+			Type2 = i[0]
 		print "WeightClass = ", row[0]
 		print "Size = ", row[1]
 		print "BaseHP = ", row[2]
@@ -39,8 +48,8 @@ def pokestat(mon):
 		print "BaseSpDef = ", row[6]
 		print "BaseSpeed = ", row[7]
 		print "Cababilities = ", row[8]
-		print "Type1 = ", row[9]
-		print "Type2 = ", row[10]
+		print "Type1 = ", Type1
+		print "Type2 = ", Type2
 
 
 
