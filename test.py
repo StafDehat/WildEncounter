@@ -123,7 +123,7 @@ def levelUp(pokemon, level):
 
   # Assign new stats to the Pokemon's attributes, by Base Relation
   # Sort stats in order of base-relation
-  # Assign stats
+  statNames = sorted(pokemon["baseStats"], key=pokemon["baseStats"].__getitem__, reverse=True)
 
   # Calculate max and min for stat[0]
   return pokemon
