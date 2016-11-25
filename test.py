@@ -53,6 +53,15 @@ def naturalize(pokemon, nature):
   return pokemon # Unsure whether this is necessary.  Function might operate on 'pokemon' memory space directly.  Really, naturalize() should be a method of a pokemon class.
 #end naturalize()
 
+def statPrint(stats):
+  statNames=sorted(stats, key=stats.__getitem__)
+  string=""
+  for name in statNames:
+    string += str(name) + str(stats[name]) + ", "
+  #end for
+  return string
+#end def
+
 def levelUp(pokemon, level):
   # Note: I don't care which stat is which for now.  I'll assign that later, according to baseRelation
   # Get a sorted list of stats - we need to allocate biggest first
@@ -76,7 +85,7 @@ def levelUp(pokemon, level):
     for x in range(thisStat-1, -1, -1):
       if ( baseStats[thisStat] < baseStats[x] ):
         # My max is 1 less than his current
-        myMaxPts = max( ( stats[x] - 1 ) - baseStats[thisStat], 0)
+        myMaxPts = min( ( stats[x] - 1 ) - baseStats[thisStat], points)
         break
       #end if
       # Else, I was tied with him.  He doesn't rule me.
@@ -87,30 +96,23 @@ def levelUp(pokemon, level):
     # Find MIN
     # Assuming we don't change this one at all, how many stats can we burn in the remaining slots?
     burnable = 0
-    # Start from right (ie:smallest).
-    # Increment 'til it almost ties its left neighbour.
+    tmp = 0
+    # Note: Getting occasional stack traces here, 'cause I'm setting min too high, by not accounting for ties
+    # ie: Something tied with me can exceed me
     for x in range(5,thisStat,-1):
-      # For each stat right of thisStat, find its limiter
-      limiter = 0
-      for y in range(x-1, 0, -1):
-        if ( baseStats[y] > baseStats[x] ):
-          #Not a tie, so baseStats[y]-1 is an upper cap on baseStats[x]
-          limiter = y
-        #end if
-      #end for y
-      # Increment this guy and his lessers, until he's capped by limiter
-      burnable += max( ( baseStats[limiter] - 1 - baseStats[x] ) * ( 6 - x ), 0 )
+      tmp = 2*tmp + 1
+      burnable += max(0, baseStats[thisStat] - baseStats[x])
     #end for
-
-    # And that leaves X points left-over, which, when distributed "evenly" among
-    #   all stats, keeps *this* stat at its minimum possible value.
-    myMinPts = math.ceil( (points-burnable) / (statsToGo+1) )
-
+    burnable = max(0, burnable - tmp)
+    myMinPts = math.ceil( ( points - burnable ) / (5-thisStat) )
 
     #
     # Choose a random value between myMaxPts and myMinPts, for this stat.
+    print "Min: ", myMinPts
+    print "Max: ", myMaxPts
     myPts = random.randint(myMinPts, myMaxPts)
     myVal = baseStats[thisStat] + myPts
+    print "Assigning ", myPts, " points"
 
     # Update the stats lists
     stats[thisStat] = myVal
@@ -124,8 +126,10 @@ def levelUp(pokemon, level):
   # Assign new stats to the Pokemon's attributes, by Base Relation
   # Sort stats in order of base-relation
   statNames = sorted(pokemon["baseStats"], key=pokemon["baseStats"].__getitem__, reverse=True)
+  for stat in range(0,6):
+    pokemon["addedStats"][statNames[stat]] = stats[stat]
+  #end for
 
-  # Calculate max and min for stat[0]
   return pokemon
 #end levelUp()
 
@@ -148,7 +152,8 @@ pokemon = levelUp(pokemon, level)
 print "Name:   ", pokemon["name"]
 print "Level:  ", level
 print "Nature: ", nature["name"]
-print "Base Stats: ", pokemon["baseStats"]
-print "Added Stats: ", pokemon["addedStats"]
+print "Base Stats:  ", statPrint(pokemon["baseStats"])
+print "Added Stats: ", statPrint(pokemon["addedStats"])
+
 
 
