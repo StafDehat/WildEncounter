@@ -25,7 +25,7 @@ class Biome(object):
 #		All biomes will also do a d100 roll to determine if the generated pokemon is shiny or not
 
 	def __init__(self, name):
-# return a Biome object whose name is *name*.
+# create a Biome object whose name is *name*.
 		self.name = name
 	def test(self):
 		print self.name
