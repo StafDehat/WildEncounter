@@ -19,7 +19,7 @@ class Pokemon(object):
 		self.name = mon
 		mon = (mon,)
 		self.level = int(level)
-
+		self.nature = GetNature()
 # Come back and clean up the DB stuff by making it into a method that __init__ can just call.
 
 		conn = sqlite3.connect('PTA')
@@ -57,6 +57,7 @@ class Pokemon(object):
 
 
 ### This could also be its own method that gets ability information
+# I will likely leave this for now as the abilities in the DB are currently for PTU and thus moot for me.
 
 		self.num = (self.num ,)
 		abilitydata = conn.execute('SELECT AbilityID From PokemonAbilities WHERE PokemonNum=? and AbilityLevel=1 ORDER BY RANDOM() LIMIT 1' , self.num)
@@ -121,15 +122,26 @@ class Pokemon(object):
 		self.nature = nature
 	
 	def LevelUp(self):
-		StatPoint = self.level - 1
-		stats = sorted(self.BaseStats)
+		StatPoints = self.level - 1
+		Stats = sorted(self.BaseStats.values(), reverse=True)
+		BaseStats = Stats[:]
+		Newstats = {}
+	
+		for i in (0,5,1,2,3):
+			if StatPoints < 1:
+				break
+			Increment = random.randint(0,StatPoints)
+			StatPoints -= Increment
+			Stats[i] += Increment
+			Stats[4] += StatPoints
+			Stats.sort()
 
-#		NewStats_Before = {}
-		keys = NewStats.keys()
-		Shuff_Stats = random.shuffle(keys)
-#		Shuff_Stats = [key,NweStats[key] for key in keys]
+			if ( len(set(Stats)) < len(set(BaseStats)) ):
+				print "Base relation tie problems"
 
-#		while Statpoint > 0
-			
+		StatOrder = sorted(self.BaseStats.keys())
+		for x in range(0,6):
+			Newstats[StatOrder[x]] = Stats[x]
 
-		return NewStats
+		return Newstats	
+
