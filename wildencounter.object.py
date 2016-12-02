@@ -105,30 +105,31 @@ class Pokemon(object):
 		for i in Typedata:
 			self.Type2 = i[0]
 	def __str__(self):
-		return "{}\n" +
-                       "{}\n" +
-                       "HP: {}\n" +
-                       "Atk: {}\n" +
-                       "Def: {}\n" +
-                       "SpAtk: {}\n" + 
-                       "SpDef: {}\n" +
-                       "Speed: {}\n" +
-                       "Type: {}/{}\n" +
-                       "WeightClass: {}\n" +
-                       "Size: {}\n" +
-                       "Capabilities {}".format(self.name,
-                                                Nature(self.nature),
-                                                self.HP,
-                                                self.Atk,
-                                                self.Def,
-                                                self.SpAtk,
-                                                self.SpDef,
-                                                self.Speed,
-                                                self.Type1,
-                                                self.Type2,
-                                                self.WeightClass,
-                                                self.Size,
-                                                self.Capabilities )
+		output = ( "{}\n"
+                           "{}\n"
+                           "HP: {}\n"
+                           "Atk: {}\n"
+                           "Def: {}\n"
+                           "SpAtk: {}\n"
+                           "SpDef: {}\n"
+                           "Speed: {}\n"
+                           "Type: {}/{}\n"
+                           "WeightClass: {}\n"
+                           "Size: {}\n"
+                           "Capabilities {}" )
+		return output.format(self.name,
+                                     Nature(self.nature),
+                                     self.HP,
+                                     self.Atk,
+                                     self.Def,
+                                     self.SpAtk,
+                                     self.SpDef,
+                                     self.Speed,
+                                     self.Type1,
+                                     self.Type2,
+                                     self.WeightClass,
+                                     self.Size,
+                                     self.Capabilities )
 
 
 # Now that we have a mon lets make some functions to do stuff with it's data
