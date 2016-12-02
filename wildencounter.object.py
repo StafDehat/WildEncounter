@@ -11,7 +11,7 @@
 
 # First we are going to import some modules and classes we will need later.
 import random, sys, sqlite3, getopt
-
+from collections import Counter
 # Gonna import my classes/modules here;
 #from nature import Nature
 #from monmods import GetNature
@@ -32,7 +32,7 @@ def Shiny():
 # /end shiny
 
 # roll for rareness
-def Rareroll():
+def RareRoll():
 	rareness = random.randint(1,100)
 	return rareness
 # / end roll for rareness
@@ -63,6 +63,8 @@ class Nature(object):
 			Nature.ModUp = 1
 		if self.StatDown == "HP":
 			Nature.ModDown = 1
+		self.StatUpMod = {str(self.StatUp): int(Nature.ModUp)}
+		self.StatDownMod = {str(self.StatDown): int(Nature.ModDown)}
 	def __str__(self):
 		return "Nature: {}\n+{} {}\n-{} {}".format(self.name, Nature.ModUp, self.StatUp, Nature.ModDown, self.StatDown)
 # /end Nature
@@ -115,15 +117,18 @@ class Pokemon(object):
 	def Naturalize(self):
 		# First we grab the nature from our pokemon object and get the object for that nature
 		nature = Nature(self.nature)
-		BaseStats = {"BaseHP": self.HP, "BaseAtk": self.Atk, "BaseDef": self.Def, "BaseSpAtk": self.SpAtk, "BaseSpDef": self.SpDef, "BaseSpeed": self.Speed}
+		BaseStats = {"HP": int(self.HP), "Atk": int(self.Atk), "Def": int(self.Def), "SpAtk": int(self.SpAtk), "SpDef": int(self.SpDef), "Speed": int(self.Speed)}
+		a = Counter(BaseStats)
+		b = Counter(nature.StatUpMod)
+		c = Counter(nature.StatDownMod)
+		
+		NewStats = (a + b) - c
+
 		StatPoint = self.level - 1
-		NewStats = {"HP": self.HP, "Atk": self.Atk, "Def": self.Def, "SpAtk": self.SpAtk, "SpDef": self.SpDef, "Speed": self.Speed}
-		NewStats[nature.StatUp] = self.(nature.Statup) += nature.ModUp
-		NewStats[nature.StatDown] = self.%s %nature.StatDown -= nature.ModDown
 		
 #			while Statpoint > 0
 			
-		return BaseStats
+		return a, b, c,  NewStats
 
 
 
@@ -196,7 +201,7 @@ class Biome(object):
 
 	def encounter(self):
 		Shiny()
-		rareness = Rareroll()
+		rareness = RareRoll()
 		if rareness < 6:
 			self.rare()	
 			return self.mon 
