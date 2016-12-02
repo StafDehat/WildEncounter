@@ -23,3 +23,6 @@ print pokemon
 
 print Counter(pokemon.Naturalize())
 
+
+print sorted(pokemon.LevelUp().values(), reverse=True)
+
