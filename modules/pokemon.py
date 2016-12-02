@@ -39,7 +39,7 @@ class Pokemon(object):
 			self.num = row[11]
 			self.Mchance = int(row[12])
 			self.Fchance = int(row[13])
-		self.Naturalize()
+		self.Naturalize(Nature())
 		self.Type1 = (self.Type1 ,)
 		self.Type2 = (self.Type2 ,)
 		Typedata = conn.execute('SELECT Type from Types where TypeID =?', self.Type1)
@@ -114,19 +114,11 @@ class Pokemon(object):
 			sex = 'F'
 		return sex
 
-	def Naturalize(self):
-		self.nature = Nature()
-		a = Counter(self.BaseStats)
-		b = Counter(self.nature.StatUpMod)
-		c = Counter(self.nature.StatDownMod)
-
-		NewStats_counter = (a + b) - c
-		
-		NewStats = {}
-		
-		for key, value in NewStats_counter.items():
-			NewStats[key] = value
-		return NewStats	
+	def Naturalize(self, nature):
+		modded = collections.Counter(self.BaseStats)
+		modded.update(nature.statMods)
+		self.BaseStats = dict(modded)
+		self.nature = nature
 	
 	def LevelUp(self):
 		StatPoint = self.level - 1
