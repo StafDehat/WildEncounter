@@ -5,7 +5,6 @@ from collections import Counter
 
 sys.path.insert(0, "modules/")
 
-from monmods import GetNature
 from monmods import Shiny
 from monmods import RareRoll
 from nature import Nature

@@ -13,10 +13,3 @@ def RareRoll():
 	return rareness
 # / end roll for rareness
 
-# function to get a nature from DB
-def GetNature():
-	conn = sqlite3.connect('PTA')
-	data = conn.execute('SELECT Name FROM Natures ORDER BY RANDOM() LIMIT 1')
-	for row in data:
-		nature = row[0]
-	return nature

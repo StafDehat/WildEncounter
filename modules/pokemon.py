@@ -1,7 +1,6 @@
 import random, sys, sqlite3, getopt
 sys.path.insert(0, "modules/")
 from collections import Counter
-from monmods import GetNature
 from monmods import Shiny
 from monmods import RareRoll
 from nature import Nature
@@ -40,6 +39,7 @@ class Pokemon(object):
 			self.num = row[11]
 			self.Mchance = int(row[12])
 			self.Fchance = int(row[13])
+		self.Naturalize(Nature())
 		self.Type1 = (self.Type1 ,)
 		self.Type2 = (self.Type2 ,)
 		Typedata = conn.execute('SELECT Type from Types where TypeID =?', self.Type1)
@@ -85,7 +85,7 @@ class Pokemon(object):
 							"Sex: {}\n"
 							"Capabilities {}" )
 		return output.format(self.name,
-									Nature(self.nature),
+									self.nature.name,
 									self.Ability,
 									self.HP,
 									self.Atk,
@@ -115,20 +115,11 @@ class Pokemon(object):
 			sex = 'F'
 		return sex
 
-
-	def Naturalize(self):
-		nature = Nature(self.nature)
-		a = Counter(self.BaseStats)
-		b = Counter(nature.StatUpMod)
-		c = Counter(nature.StatDownMod)
-
-		NewStats_counter = (a + b) - c
-		
-		NewStats = {}
-		
-		for key, value in NewStats_counter.items():
-			NewStats[key] = value
-		return NewStats	
+	def Naturalize(self, nature):
+		modded = collections.Counter(self.BaseStats)
+		modded.update(nature.statMods)
+		self.BaseStats = dict(modded)
+		self.nature = nature
 	
 	def LevelUp(self):
 		StatPoints = self.level - 1
