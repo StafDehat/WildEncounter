@@ -15,12 +15,13 @@ from pokemon import Pokemon
 mon = sys.argv[1]
 level = sys.argv[2]
 
-pokemon = Pokemon(mon, level)
 
+pokemon = Pokemon(mon, level)
 
 print pokemon
 
-print Counter(pokemon.Naturalize())
+#print Counter( Nature("random").StatMods )
+print pokemon.nature.StatMods
 
 
 print sorted(pokemon.LevelUp().values(), reverse=True)

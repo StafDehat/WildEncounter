@@ -4,6 +4,8 @@ from collections import Counter
 from monmods import Shiny
 from monmods import RareRoll
 from nature import Nature
+
+
 class Pokemon(object):
 # All Pokemon have the following:
 # A name (the kind of pokemon)
@@ -19,9 +21,7 @@ class Pokemon(object):
 		self.name = mon
 		mon = (mon,)
 		self.level = int(level)
-		self.nature = GetNature()
-# Come back and clean up the DB stuff by making it into a method that __init__ can just call.
-
+		# Come back and clean up the DB stuff by making it into a method that __init__ can just call.
 		conn = sqlite3.connect('PTA')
 		data = conn.execute('SELECT WeightClass, Size, BaseHP, BaseAtk, BaseDef, BaseSpAtk, BaseSpDef, BaseSpeed,Capabilities, Type1, Type2, Number, Male, Female FROM Pokemon where Name=?' , mon)
 		for row in data:
@@ -39,37 +39,35 @@ class Pokemon(object):
 			self.num = row[11]
 			self.Mchance = int(row[12])
 			self.Fchance = int(row[13])
+		#end for
+		self.BaseStats = {"HP": int(self.HP), "Atk": int(self.Atk), "Def": int(self.Def), "SpAtk": int(self.SpAtk), "SpDef": int(self.SpDef), "Speed": int(self.Speed)}
 		self.Naturalize(Nature())
 		self.Type1 = (self.Type1 ,)
 		self.Type2 = (self.Type2 ,)
 		Typedata = conn.execute('SELECT Type from Types where TypeID =?', self.Type1)
 		for i in Typedata:
 			self.Type1 = i[0]
+		#end for
 		Typedata = conn.execute('SELECT Type from Types where TypeID =?', self.Type2)
 		for i in Typedata:
 			self.Type2 = i[0]
-
-### /end DB call for Basestats
-
-		self.BaseStats = {"HP": int(self.HP), "Atk": int(self.Atk), "Def": int(self.Def), "SpAtk": int(self.SpAtk), "SpDef": int(self.SpDef), "Speed": int(self.Speed)}
-
-
-
-
-### This could also be its own method that gets ability information
-# I will likely leave this for now as the abilities in the DB are currently for PTU and thus moot for me.
-
+		#end for
+		### /end DB call for Basestats
+		### This could also be its own method that gets ability information
+		# I will likely leave this for now as the abilities in the DB are currently for PTU and thus moot for me.
 		self.num = (self.num ,)
 		abilitydata = conn.execute('SELECT AbilityID From PokemonAbilities WHERE PokemonNum=? and AbilityLevel=1 ORDER BY RANDOM() LIMIT 1' , self.num)
 		for i in abilitydata.fetchall():
 			ability = i
+		#end for
 		abilitydata2 = conn.execute('SELECT Name from Abilities WHERE AbilityID=?' , ability)	
 		for i in abilitydata2:
 			self.Ability = i[0]
-
-# This is the function to print out our Pokemon Object so whatever we define here we will see when we run stuff.
+		#end for
+	#enddef __init__
 
 	def __str__(self):
+# This is the function to print out our Pokemon Object so whatever we define here we will see when we run stuff.
 		output = ( "{}\n"
 							"{}\n"
 							"Ability: {}\n"
@@ -116,8 +114,8 @@ class Pokemon(object):
 		return sex
 
 	def Naturalize(self, nature):
-		modded = collections.Counter(self.BaseStats)
-		modded.update(nature.statMods)
+		modded = Counter(self.BaseStats)
+		modded.update(nature.StatMods)
 		self.BaseStats = dict(modded)
 		self.nature = nature
 	
